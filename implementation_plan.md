@@ -2,6 +2,11 @@
 
 This document outlines the step-by-step engineering process to replicate the DetDSHAP pruning methodology on a YOLOv8 model. This revised plan addresses critical flaws in previous versions and commits to a more robust, non-simulated implementation.
 
+### **Guiding Principles**
+
+*   **Perfection and Verification:** After each phase, all outputs and results will be thoroughly reviewed and validated for correctness and perfection. Only after this rigorous check is complete will the work be committed.
+*   **Sequential Progress:** We will only proceed to the next phase after the current phase is 100% complete, validated, and committed.
+
 ### **Phase 1: Foundational Tooling (Hierarchical Graph Parsing)**
 
 *   **Objective:** To deeply understand the model's complex, non-sequential, and hierarchical architecture.
@@ -34,12 +39,14 @@ This document outlines the step-by-step engineering process to replicate the Det
         *   **`C2f` Modules:** Traverse the internal sub-graph of the module, propagating relevance through its internal convolutions and splits.
         *   **`Detect` Head:** The backward pass must correctly traverse the internal convolutional layers of the `Detect` module, propagating relevance from the final output tensor back to its three input feature maps.
         *   **`Conv2d` & `SiLU` Layers:** Apply the specific LRP and custom derivative rules as defined in the paper.
-*   **Outcome:** A dictionary mapping every layer to its correctly calculated relevance tensor.
+*   **Outcome:**
+    1.  A dictionary mapping every layer to its correctly calculated relevance tensor.
+    2.  **Visualization:** For a sample image, generate and save a visual output showing the original image, the detected bounding box for the explained object, and the SHAP relevance map overlaid as a heatmap. This provides concrete visual proof of the explainer's function.
 *   **Checkpoint:**
-    - After the explainer produces correct, real SHAP maps, run:
+    - After the explainer produces correct, real SHAP maps and a visualization, run:
       ```sh
       git add .
-      git commit -m "[DetDSHAP] Phase 2 complete: Graph-based DetDSHAP explainer implemented."
+      git commit -m "[DetDSHAP] Phase 2 complete: Graph-based DetDSHAP explainer implemented and visualized."
       ```
 
 ### **Phase 3: Real, Class-Balanced Importance Calculation**
@@ -93,8 +100,8 @@ This document outlines the step-by-step engineering process to replicate the Det
 
 *   **Objective:** To provide a final, honest comparison.
 *   **Action:** Create a final evaluation and comparison table.
-*   **Method:** Run `model.val()` on both the original model and the final, fine-tuned pruned model.
-*   **Outcome:** A table of **real, measured metrics** (mAP, Parameters, FLOPs, F1, Recall).
+*   **Method:** Run `model.val()` on both the original model and the final, fine-tuned pruned model. This command evaluates performance across the **entire validation dataset** as specified in the project's data configuration file.
+*   **Outcome:** A final report table containing **real, measured metrics** (mAP@0.5, mAP@0.5-0.95, Parameters, FLOPs, F1, Recall) from the full validation run.
 *   **Checkpoint:**
     - After generating the final evaluation, run:
       ```sh
