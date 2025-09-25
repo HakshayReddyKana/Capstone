@@ -323,7 +323,3 @@ This pipeline successfully demonstrates:
 
 ---
 
-**🚁 Ready for UAV/Drone Deployment!**
-
-*Generated on: September 22, 2025*</content>
-<parameter name="filePath">c:\Users\haksh\Documents\CALSS MATERIALS\SEM7\Capstone\YOLOv8_Pruning_Pipeline\README.md
