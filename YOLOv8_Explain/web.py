@@ -7,11 +7,11 @@ import os
 import time
 from YOLOv8_Explainer import yolov8_heatmap, display_images
 
-st.title("🧠 YOLOv8 Explainer - XAI Web Interface")
+st.title("YOLOv8 Explainer - XAI Web Interface")
 st.markdown("Upload an image to see how YOLOv8 makes its predictions!")
 
 # Sidebar for configuration
-st.sidebar.header("⚙️ Configuration")
+st.sidebar.header("Configuration")
 method = st.sidebar.selectbox(
     "Explanation Method",
     ["GradCAM", "EigenCAM", "EigenGradCAM", "HiResCAM", "LayerCAM"],
@@ -22,12 +22,12 @@ show_boxes = st.sidebar.checkbox("Show Bounding Boxes", value=False)
 conf_threshold = st.sidebar.slider("Confidence Threshold", 0.1, 1.0, 0.4, 0.1)
 
 # Main interface
-uploaded_file = st.file_uploader("📤 Choose an image...", type=["jpg", "jpeg", "png"])
+uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
 
 if uploaded_file is not None:
     # Display original image
     image = Image.open(uploaded_file)
-    st.image(image, caption="🖼️ Original Image", use_column_width=True)
+    st.image(image, caption="Original Image", use_column_width=True)
 
     # Save uploaded image to temporary file for processing
     with tempfile.NamedTemporaryFile(delete=False, suffix='.jpg') as tmp_file:
@@ -36,7 +36,7 @@ if uploaded_file is not None:
 
     try:
         # Initialize explainer with user settings
-        with st.spinner("🔍 Generating explanation..."):
+        with st.spinner("Generating explanation..."):
             model = yolov8_heatmap(
                 weight="weights/best.pt",
                 method=method,
@@ -49,13 +49,13 @@ if uploaded_file is not None:
 
         # Display results
         if imagelist:
-            st.image(imagelist[0], caption=f"🎯 Explanation ({method})", use_column_width=True)
+            st.image(imagelist[0], caption=f"Explanation ({method})", use_column_width=True)
 
-            st.success("✅ Explanation generated successfully!")
+            st.success(" Explanation generated successfully!")
 
             # Additional info
             st.markdown("---")
-            st.markdown("### 📊 Analysis Details")
+            st.markdown("### Analysis Details")
             col1, col2, col3 = st.columns(3)
             with col1:
                 st.metric("Method", method)

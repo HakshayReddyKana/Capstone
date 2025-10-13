@@ -29,6 +29,7 @@ setup(
         "tqdm",
         "torch",
         "matplotlib",
+        "streamlit",
     ],
     extras_require={
         "dev": ["twine>=4.0.2"],

@@ -164,7 +164,7 @@ model.train(
 
 #### **`pruned_yolo_model.pt`** - Successfully Pruned Model
 - **Original:** 3,157,200 parameters
-- **Pruned:** 3,157,200 parameters (weights zeroed, not removed)
+- **Pruned:** 3,012,798 parameters 
 - **Channels Pruned:** 1,547 out of 5,296 (~49%)
 - **Size:** 6.25 MB
 
