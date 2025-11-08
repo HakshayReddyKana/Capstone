@@ -12,6 +12,21 @@ st.markdown("Upload an image to see how YOLOv8 makes its predictions!")
 
 # Sidebar for configuration
 st.sidebar.header("Configuration")
+
+# Model selection
+model_options = {
+    "Final Model": "final.pt",
+    "Best Model": "best.pt",
+    "YOLOv8 Trained": "original/yolov8_trained.pt",
+    "YOLOv10 Trained": "original/yolov10_trained.pt",
+    "YOLOv11 Trained": "original/yolo11_trained.pt"
+}
+selected_model = st.sidebar.selectbox(
+    "Select Model",
+    list(model_options.keys()),
+    index=0
+)
+
 method = st.sidebar.selectbox(
     "Explanation Method",
     ["GradCAM", "EigenCAM", "EigenGradCAM", "HiResCAM", "LayerCAM"],
@@ -35,10 +50,18 @@ if uploaded_file is not None:
         tmp_path = tmp_file.name
 
     try:
+        # Get the absolute path to the model file
+        model_path = os.path.join(os.path.dirname(__file__), model_options[selected_model])
+        
+        # Check if model file exists
+        if not os.path.exists(model_path):
+            st.error(f"❌ Model file not found: {model_path}")
+            st.stop()
+        
         # Initialize explainer with user settings
         with st.spinner("Generating explanation..."):
             model = yolov8_heatmap(
-                weight="final.pt",
+                weight=model_path,
                 method=method,
                 show_box=show_boxes,
                 conf_threshold=conf_threshold
