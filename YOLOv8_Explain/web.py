@@ -18,7 +18,7 @@ method = st.sidebar.selectbox(
     index=0
 )
 
-show_boxes = st.sidebar.checkbox("Show Bounding Boxes", value=False)
+show_boxes = st.sidebar.checkbox("Show Bounding Boxes", value=True)
 conf_threshold = st.sidebar.slider("Confidence Threshold", 0.1, 1.0, 0.4, 0.1)
 
 # Main interface
