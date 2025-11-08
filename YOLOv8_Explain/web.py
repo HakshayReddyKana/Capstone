@@ -55,14 +55,14 @@ if uploaded_file is not None:
 
             # Additional info
             st.markdown("---")
-            st.markdown("### Analysis Details")
-            col1, col2, col3 = st.columns(3)
-            with col1:
-                st.metric("Method", method)
-            with col2:
-                st.metric("Confidence Threshold", f"{conf_threshold:.1f}")
-            with col3:
-                st.metric("Bounding Boxes", "Yes" if show_boxes else "No")
+            # st.markdown("### Analysis Details")
+            # col1, col2, col3 = st.columns(3)
+            # with col1:
+            #     st.metric("Method", method)
+            # with col2:
+            #     st.metric("Confidence Threshold", f"{conf_threshold:.1f}")
+            # with col3:
+            #     st.metric("Bounding Boxes", "Yes" if show_boxes else "No")
 
         else:
             st.error("❌ No explanation generated. Try adjusting the confidence threshold.")
