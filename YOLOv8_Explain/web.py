@@ -38,7 +38,7 @@ if uploaded_file is not None:
         # Initialize explainer with user settings
         with st.spinner("Generating explanation..."):
             model = yolov8_heatmap(
-                weight="weights/best.pt",
+                weight="./weights/best.pt",
                 method=method,
                 show_box=show_boxes,
                 conf_threshold=conf_threshold
